@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  // variable: "--font-outfit",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Outfit({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
-  title: "Projectory",
-  description: "A global platform where developers and students share real-world projects, collaborate openly, and build resume-worthy experience through verified contributions.",
+  title: "Projectory | Learn from Real-World Projects",
+  description: "A global platform to showcase real-world projects, learn from practical work, and strengthen your resume with verifiable, real outcomes.",
 };
 
 export default function RootLayout({
@@ -23,13 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="english">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${outfit.className} antialiased`}
       >
         <header>
-          <nav className="flex items-center bg-pink-600 justify-between p-4">
-            <div className="text-xl font-bold">iBuilt This</div>
+          <nav className="flex items-center bg-pink-300 justify-between p-4">
+            <div className="text-xl font-bold">Projectory</div>
             <div className="flex space-x-4">
               <a href="/about" className="hover:underline">About</a>
               <a href="/projects" className="hover:underline">Projects</a>
@@ -39,7 +39,7 @@ export default function RootLayout({
         </header>
         {children}
         <footer className="p-4 text-center text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} iBuilt This. All rights reserved.
+          &copy; {new Date().getFullYear()} Projectory. All rights reserved.
         </footer>
       </body>
     </html>
