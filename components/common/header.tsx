@@ -27,7 +27,7 @@ export default function Header() {
                 font-medium text-muted-foreground hover:text-foreground 
                 transition-colors hover:bg-muted/50"
             >
-              <HomeIcon className="size-4" />
+              <HomeIcon className="size-4 " />
               <span>Home</span>
             </Link>
           </nav>
