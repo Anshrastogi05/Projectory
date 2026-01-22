@@ -3,6 +3,7 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/common/header";
+import Footer from "@/components/common/footer";
 
 const outfit = Outfit({
   // variable: "--font-outfit",
@@ -32,9 +33,7 @@ export default function RootLayout({
         >
          <Header/>
           {children}
-          <footer className="p-4 text-center text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Projectory. All rights reserved.
-          </footer>
+       <Footer/>
         </body>
       </html>
     </ClerkProvider>
