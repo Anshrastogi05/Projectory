@@ -68,6 +68,89 @@
 // };
 
 
+// "use client";
+
+// import Link from "next/link";
+// import {
+//   Card,
+//   CardDescription,
+//   CardHeader,
+//   CardTitle,
+// } from "@/components/ui/card";
+// import { Badge } from "../ui/badge";
+// import { ChevronDownIcon, ChevronUpIcon, StarIcon } from "lucide-react";
+// import { Button } from "../ui/button";
+// import { cn } from "@/lib/utils";
+// import { InferSelectModel } from "drizzle-orm";
+// import { products } from "@/db/schema";
+
+// type Product = InferSelectModel<typeof products>;
+
+// export default function ProductCard({ product }: { product: Product }) {
+//   const hasVoted = false;
+
+//   return (
+//     <Card className="group border-gray-400 hover:bg-primary-foreground/10">
+//       {/* CLICKABLE CONTENT */}
+//       <Link href={`/products/${product.id}`} className="block">
+//         <CardHeader>
+//           <div className="flex items-start gap-3">
+//             <div className="flex-1">
+//               <div className="flex items-center gap-2">
+//                 <CardTitle className="text-lg font-semibold group-hover:text-primary transition-colors">
+//                   {product.name}
+//                 </CardTitle>
+
+//                 {product.voteCount>20 && (
+//                   <Badge className="gap-1 bg-primary text-primary-foreground">
+//                     <StarIcon className="size-3 fill-current" />
+//                     Featured
+//                   </Badge>
+//                 )}
+//               </div>
+
+//               <CardDescription className="mt-2">
+//                 {product.description}
+//               </CardDescription>
+//             </div>
+//           </div>
+//         </CardHeader>
+//       </Link>
+
+//       {/* VOTING AREA (OUTSIDE LINK ✅) */}
+//      <div className="flex flex-col items-end gap-1 shrink-0">
+//               <Button variant="ghost" size="icon-sm" className={cn("h-8 w-8 text-primary hover:bg-primary/10",
+//                 hasVoted ? "hover:bg-primary/20 hover:text-primary" : "hover:bg-primary/20 hover:text-primary"
+//               )}>
+//                 <ChevronUpIcon className="size-4" />
+//               </Button>
+//               <span className="text-sm text-muted-foreground">
+//                 {product.voteCount}
+//               </span>
+//               <Button variant="ghost" size="icon-sm" className={cn("h-8 w-8 text-primary hover:bg-primary/10",
+//                 hasVoted ? "text-destructive" : "opacity-50 cursor-not-allowed"
+//               )}>
+//                 <ChevronDownIcon className="size-4" />
+//               </Button>
+//             </div>
+          
+//         </CardHeader>
+    
+//       </Link>
+
+//       {/* TAGS */}
+//       <div className="flex flex-wrap gap-2 px-4 pb-4">
+//         {product.tags?.map((tag) => (
+//           <Badge key={tag} variant="secondary" className="text-xs rounded-md">
+//             {tag}
+//           </Badge>
+//         ))}
+//       </div>
+//     </Card>
+//   );
+// }
+
+
 "use client";
 
 import Link from "next/link";
@@ -91,7 +174,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <Card className="group border-gray-400 hover:bg-primary-foreground/10">
-      {/* CLICKABLE CONTENT */}
+      {/* CLICKABLE HEADER */}
       <Link href={`/products/${product.id}`} className="block">
         <CardHeader>
           <div className="flex items-start gap-3">
@@ -101,7 +184,7 @@ export default function ProductCard({ product }: { product: Product }) {
                   {product.name}
                 </CardTitle>
 
-                {product.voteCount>20 && (
+                {product.voteCount > 20 && (
                   <Badge className="gap-1 bg-primary text-primary-foreground">
                     <StarIcon className="size-3 fill-current" />
                     Featured
@@ -118,35 +201,38 @@ export default function ProductCard({ product }: { product: Product }) {
       </Link>
 
       {/* VOTING AREA (OUTSIDE LINK ✅) */}
-      <div className="flex items-center justify-between px-4 pb-4">
-        <span className="text-sm text-muted-foreground">
-          {product.voteCount}
-        </span>
+    {/* VOTING AREA (OUTSIDE LINK ✅) */}
+<div className="flex flex-col items-end gap-1 shrink-0 px-7">
+  <Button
+    variant="ghost"
+    size="icon-sm"
+    className={cn(
+      "h-8 w-8 text-primary hover:bg-primary/10",
+      hasVoted
+        ? "hover:bg-primary/20 hover:text-primary"
+        : "hover:bg-primary/10 hover:text-primary"
+    )}
+  >
+    <ChevronUpIcon className="size-4" />
+  </Button>
 
-        <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            className={cn(
-              "h-8 w-8 text-primary hover:bg-primary/10",
-              hasVoted && "bg-primary/10"
-            )}
-          >
-            <ChevronUpIcon className="size-4" />
-          </Button>
+  <span className="text-sm text-muted-foreground">
+    {product.voteCount}
+  </span>
 
-          <Button
-            variant="ghost"
-            size="icon-sm"
-            className={cn(
-              "h-8 w-8 text-primary hover:bg-primary/10",
-              !hasVoted && "opacity-50 cursor-not-allowed"
-            )}
-          >
-            <ChevronDownIcon className="size-4 rotate-180" />
-          </Button>
-        </div>
-      </div>
+  <Button
+    variant="ghost"
+    size="icon-sm"
+    className={cn(
+      "h-8 w-8 text-primary hover:bg-primary/10",
+      hasVoted
+        ? "text-destructive"
+        : "opacity-50 cursor-not-allowed"
+    )}
+  >
+    <ChevronDownIcon className="size-4" />
+  </Button>
+</div>
 
       {/* TAGS */}
       <div className="flex flex-wrap gap-2 px-4 pb-4">
