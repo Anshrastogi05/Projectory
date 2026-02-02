@@ -4,15 +4,19 @@ import { SparkleIcon } from "lucide-react";
 
 export default function SubmitPage() {
   return (
-    <div className="wrapper">
-      <SectionHeader
-        title="Submit Your project"
-        Icon={SparkleIcon}
-        description="Share your creation with the community. Your submission will be reviewed before it goes live."
-      />
-      <div className="nax-w-2xl mx-auto">
-        <ProductSubmitForm />
+    <section className="py-20">
+      <div className="wrapper">
+        <div className="mb-12">
+          <SectionHeader
+            title="Submit Your project"
+            Icon={SparkleIcon}
+            description="Share your creation with the community. Your submission will be reviewed before it goes live."
+          />
+        </div>
+        <div className="nax-w-2xl mx-auto">
+          <ProductSubmitForm />
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
