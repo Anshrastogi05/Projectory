@@ -1,17 +1,50 @@
-import { clerkMiddleware } from '@clerk/nextjs/server';
-import { ca } from 'zod/v4/locales';
+import { clerkClient,clerkMiddleware } from '@clerk/nextjs/server';
 
-export default clerkMiddleware();
+import { NextResponse } from 'next/server';
+
+export default clerkMiddleware(async (auth) => {
   const {userId, orgId } = await auth();
-  if(userId && !orgId){
+  if(userId && !orgId) {     
     try{
       const client  = await clerkClient();
-      const organizations = await client.organizations.getOrganizations({
-        memberUserId: userId,
+      // check if user belongs to any organization
+      const { data: organizations } = await client.users.getOrganizationMembershipList({
+        userId,
       }); 
+       if (organizations && organizations.length > 0) {
+        return NextResponse.next(); 
+       }
+    const user = await client.users.getUser
+    (userId);
+      
+const orgname = user.fullName
+? `${user.fullName}'s Organization`
+: user.firstName
+? `${user.firstName}'s Organization`
+:  user.username
+? `${user.username}'s Organization`
+: user.primaryEmailAddress?.emailAddress
+? `${user.primaryEmailAddress?.emailAddress}'s Organization`
+: "My Organization";
+
+await client.organizations.createOrganization({
+  name: orgname,
+  createdBy: userId,
+});
+
+  //   await client.users.updateUser(userId, { publicMetadata: {
+  //     hasOrganization: false,
+  //  } });
+  //   return NextResponse.next();
+       console.log("Auto-created organization for user:",orgname);
+
     }
     catch(error){
+      console.error("Error in organization creation middleware:", error);
+    }
   }
+});
+
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
